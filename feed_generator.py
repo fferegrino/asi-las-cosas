@@ -2,6 +2,10 @@ import podcastparser
 import re
 import urllib.request
 from datetime import datetime, timezone
+from pathlib import Path
+
+output_dir = Path('output')
+output_dir.mkdir(parents=True, exist_ok=True)
 
 feed_url = 'https://fapi-top.prisasd.com/podcast/wradiomexico/asi_las_cosas/itunestfp/podcast.xml'
 
@@ -43,5 +47,4 @@ for episode in original_feed['episodes']:
     date = datetime.fromtimestamp(episode['published'], tz=timezone.utc)
     fe.pubdate(date)
 
-fg.rss_file('feed.xml')
-
+fg.rss_file(output_dir / 'feed.xml')
